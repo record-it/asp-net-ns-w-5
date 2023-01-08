@@ -11,7 +11,7 @@ namespace wykład_4.Models
         {
             var folder = Environment.SpecialFolder.LocalApplicationData;
             var path = Environment.GetFolderPath(folder);
-            DbPath = Path.Join(path, "books.db");
+            DbPath = Path.Join(path, "books-v1.db");
             optionsBuilder.UseSqlite($"DATA SOURCE={DbPath}");
         }
 
