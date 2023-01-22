@@ -155,13 +155,17 @@ namespace wykład_4.Controllers
 
         public string GetDetails([FromQuery] int id)
         {
-            Book? book = _context.Books.Include(book => book.BookDetails).FirstOrDefault(b => b.Id == id);
+            //Book? book = _context.Books.Include(book => book.BookDetails).FirstOrDefault(b => b.Id == id);
+            Book? book = _context.Books.Find(id); 
             if (book is not null)
             {
-                return book.BookDetails.Description;
+                _context.Entry<Book>(book)
+                .Navigation("BookDetails")            
+                .Load();
+                return book?.BookDetails?.Description??"No details";
             } else
             {
-                return "Brak opisu";
+                return "Book not found";
             }
         }
 
