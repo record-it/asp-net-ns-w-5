@@ -152,6 +152,30 @@ namespace wykład_4.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public string GetDetails([FromQuery] int id)
+        {
+            Book? book = _context.Books.Include(book => book.BookDetails).FirstOrDefault(b => b.Id == id);
+            if (book is not null)
+            {
+                return book.BookDetails.Description;
+            } else
+            {
+                return "Brak opisu";
+            }
+        }
+
+        public string AddPublisher([FromQuery] int bookId, [FromQuery] int publisherId)
+        {
+            Book? book = _context.Books.Find(bookId);
+            var pub = _context.Publishers.Find(publisherId);
+            if (book is not null && pub is not null)
+            {
+                book.Publisher = pub;
+                _context.SaveChanges();
+                return "Publisher added to book";
+            }
+            return "Fail, book or publisher not found";
+        }
         private bool BookExists(int id)
         {
           return _context.Books.Any(e => e.Id == id);

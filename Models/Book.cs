@@ -9,5 +9,11 @@
         public int EditionYear { get; set; }
 
         public DateTime Created { get; set; }
+
+        public BookDetails BookDetails { get; set; }
+
+        public Publisher? Publisher {  get; set; }
+
+        public ISet<Author> Authors { get; set; }
     }
 }

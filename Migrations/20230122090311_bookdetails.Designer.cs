@@ -11,8 +11,8 @@ using wykład_4.Models;
 namespace wykład_4.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230108094837_init")]
-    partial class init
+    [Migration("20230122090311_bookdetails")]
+    partial class bookdetails
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -60,6 +60,32 @@ namespace wykład_4.Migrations
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EditionYear = 2021,
                             Title = "Java"
+                        });
+                });
+
+            modelBuilder.Entity("wykład_4.Models.BookDetails", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BookDetailsSet");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BookId = 1,
+                            Description = "Super"
                         });
                 });
 #pragma warning restore 612, 618

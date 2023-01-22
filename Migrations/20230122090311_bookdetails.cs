@@ -5,10 +5,24 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace wykład_4.Migrations
 {
-    public partial class init : Migration
+    public partial class bookdetails : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "BookDetailsSet",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
+                    BookId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BookDetailsSet", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Books",
                 columns: table => new
@@ -23,6 +37,11 @@ namespace wykład_4.Migrations
                 {
                     table.PrimaryKey("PK_Books", x => x.Id);
                 });
+
+            migrationBuilder.InsertData(
+                table: "BookDetailsSet",
+                columns: new[] { "Id", "BookId", "Description" },
+                values: new object[] { 1, 1, "Super" });
 
             migrationBuilder.InsertData(
                 table: "Books",
@@ -42,6 +61,9 @@ namespace wykład_4.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "BookDetailsSet");
+
             migrationBuilder.DropTable(
                 name: "Books");
         }
