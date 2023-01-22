@@ -165,6 +165,21 @@ namespace wykład_4.Controllers
             }
         }
 
+        public string GetAuthors([FromQuery] int id)
+        {
+            Book? book = _context.Books.Find(id);
+            if (book is not null)
+            {
+                _context.Entry(book)
+                    .Collection(a => a.Authors)
+                    .Load();
+                string authorsAsString = string.Join(", ", book.Authors);
+                return authorsAsString.Length == 0 ? "No Authors": authorsAsString;
+            }
+            return "Book not found";
+
+        }
+
         public string AddPublisher([FromQuery] int bookId, [FromQuery] int publisherId)
         {
             Book? book = _context.Books.Find(bookId);

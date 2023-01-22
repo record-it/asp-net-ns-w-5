@@ -43,7 +43,7 @@ namespace wykład_4.Models
                 .HasMany<Author>(b => b.Authors)
                 .WithMany(a => a.Books)
                 .UsingEntity(join => join.HasData(
-                    new {BooksId = 1, AuthorsId = 1},
+                    new { BooksId = 1, AuthorsId = 1 },
                     new { BooksId = 1, AuthorsId = 2 },
                     new { BooksId = 2, AuthorsId = 2 }
                     ));
