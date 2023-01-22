@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using wykład_4.Migrations;
 using wykład_4.Models;
 
 namespace wykład_4.Controllers
@@ -175,6 +176,19 @@ namespace wykład_4.Controllers
                 return "Publisher added to book";
             }
             return "Fail, book or publisher not found";
+        }
+
+        public string AddAuthor([FromQuery] int bookId, [FromQuery] int authorId)
+        {
+            Book? book = _context.Books.Find(bookId);
+            var author = _context.Authors.Find(authorId);
+            if (book is not null && author is not null)
+            {
+                book.Authors.Add(author);
+                _context.SaveChanges();
+                return "Author added to book";
+            }
+            return "Fail, book or author not found";
         }
         private bool BookExists(int id)
         {
